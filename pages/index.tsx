@@ -9,27 +9,28 @@ import useSWR from 'swr'
 const fetcher = (requestInfo: RequestInfo)  => fetch(requestInfo).then((res) : Promise<Planet[]> => res.json());
 
 const Home: NextPage = () => {
-  const { data, error } : {data : Planet[], error: any} = useSWR('/api/data', fetcher)
+  return <h1>Hello world</h1>
+  // const { data, error } : {data : Planet[], error: any} = useSWR('/api/data', fetcher)
 
-  if (error) return <p>{error}</p>
-  if (!data) return <p>No profile data</p>
+  // if (error) return <p>{error}</p>
+  // if (!data) return <p>No profile data</p>
 
-  return (
-    <table>
-      <thead>
-        <td><b>#</b></td>
-        <td><b>Name</b></td>
-        <td><b>Star</b></td>
-      </thead>
-      {data.map((planet, index) =>
-        <tr>
-          <td>{index}</td>
-          <td>{planet.pl_name}</td>
-          <td>{planet.hostname}</td>
-        </tr>
-      )}
-    </table>
-  )
+  // return (
+  //   <table>
+  //     <thead>
+  //       <td><b>#</b></td>
+  //       <td><b>Name</b></td>
+  //       <td><b>Star</b></td>
+  //     </thead>
+  //     {data.map((planet, index) =>
+  //       <tr>
+  //         <td>{index}</td>
+  //         <td>{planet.pl_name}</td>
+  //         <td>{planet.hostname}</td>
+  //       </tr>
+  //     )}
+  //   </table>
+  // )
 }
 
 export default Home
