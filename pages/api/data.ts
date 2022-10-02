@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import path from 'path'
 import fsPromises from 'fs/promises';
+import { json } from 'stream/consumers';
 
 type Data = {
   name: string
@@ -13,8 +14,7 @@ export default async function handler(
 ) {
   console.info("Date called")
   const filePath: string = path.join(process.cwd(), 'data/db.json');
-  res.status(200).json({ name: 'John Doe' })
-  const jsonData = await await fsPromises.readFile(filePath);
-
-  res.status(200).json(jsonData.toJSON)
+  const jsonData = await fsPromises.readFile(filePath);
+  const objectData: any[] = JSON.parse(jsonData);
+  res.status(200).json(objectData.slice(0, 100));
 }
