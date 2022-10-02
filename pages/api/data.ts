@@ -12,7 +12,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   console.info("Date called")
-  const filePath: string = path.join(process.cwd(), 'data/data.json');
+  const filePath: string = path.join(process.cwd(), 'data/db.json');
   res.status(200).json({ name: 'John Doe' })
   const jsonData = await await fsPromises.readFile(filePath);
 
