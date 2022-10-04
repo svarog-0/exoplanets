@@ -6,10 +6,7 @@ export const resolvers = {
     getPlanets: async () => {
       try {
         const planets: Planet[] = await getPlanets()
-        return planets.map(({pl_name, hostname}) => ({
-            name: pl_name,
-            hostname: hostname
-        }));
+        return planets.map(planet => (planet));
       } catch (error) {
         throw error;
       }
@@ -18,10 +15,7 @@ export const resolvers = {
       try {
         const planet: Planet = await getPlanet(args)
         if(!planet) return null
-        return {
-          name: planet.pl_name,
-          hostname: planet.hostname,
-        };
+        return planet;
       } catch (error) {
         throw error;
       }
