@@ -3,7 +3,11 @@ import fsPromises from 'fs/promises';
 import { Planet } from '../models/planet.model';
 
 export async function getPlanets(): Promise<Planet[]>{
-return await getPlanetsInternal()
+    return await getPlanetsInternal()
+}
+
+export async function getGetCount(): Promise<number>{
+    return (await getPlanetsInternal()).length
 }
 
 export async function getPlanet(name: string) : Promise<Planet> {

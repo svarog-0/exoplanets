@@ -1,6 +1,6 @@
-import  {  gql  }  from  "apollo-server-micro"; 
+import { gql } from "apollo-server-micro";
 
-export  const  typeDefs  =  gql`
+export const typeDefs = gql`
     type  Planet {
         pl_name:         String
         hostname:        String
@@ -12,7 +12,7 @@ export  const  typeDefs  =  gql`
         sy_snum:         Float
         sy_pnum:         Float
         sy_mnum:         Float
-        cb_flag:         Float
+        cb_flag:         Int
         discoverymethod: String
         disc_year:       Float
         disc_refname:    String
@@ -21,17 +21,17 @@ export  const  typeDefs  =  gql`
         disc_facility:   String
         disc_telescope:  String
         disc_instrument: String
-        rv_flag:         Float
-        pul_flag:        Float
-        ptv_flag:        Float
-        tran_flag:       Float
-        ast_flag:        Float
-        obm_flag:        Float
-        micro_flag:      Float
-        etv_flag:        Float
-        ima_flag:        Float
-        dkin_flag:       Float
-        pl_controv_flag: Float
+        rv_flag:         Int
+        pul_flag:        Int
+        ptv_flag:        Int
+        tran_flag:       Int
+        ast_flag:        Int
+        obm_flag:        Int
+        micro_flag:      Int
+        etv_flag:        Int
+        ima_flag:        Int
+        dkin_flag:       Int
+        pl_controv_flag: Int
         pl_orbper:       Float
         pl_orbpererr1:   Float
         pl_orbpererr2:   Float
@@ -81,7 +81,7 @@ export  const  typeDefs  =  gql`
         pl_tranmiderr1:  String
         pl_tranmiderr2:  String
         pl_tranmidlim:   String
-        ttv_flag:        Float
+        ttv_flag:        Int
         pl_imppar:       String
         pl_impparerr1:   String
         pl_impparerr2:   String
@@ -167,4 +167,28 @@ export  const  typeDefs  =  gql`
     type  Query {
         getPlanets: [Planet]
         getPlanet(name: String!): Planet!
-    }`
+        countPlanets: Int!
+    }
+
+    type Filter {
+        like: String
+        eq: eq
+        ne: ne
+        gt: gt
+        lt: lt
+        ge: ge
+        le: le
+    }
+
+    union eq = StringBox | IntBox | FloatBox
+    union ne = StringBox | IntBox | FloatBox
+    union le = FloatBox | IntBox
+    union gt = FloatBox | IntBox
+    union lt = FloatBox | IntBox
+    union ge = FloatBox | IntBox
+    union le = FloatBox | IntBox
+
+    type IntBox { value: Int}
+    type StringBox { value: String}
+    type FloatBox { value: Float}
+    `
