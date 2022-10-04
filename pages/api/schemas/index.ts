@@ -165,30 +165,218 @@ export const typeDefs = gql`
     }
 
     type  Query {
-        getPlanets: [Planet]
-        getPlanet(name: String!): Planet!
+        getPlanets(filter: PlanetFilter!): [Planet]
+        getPlanet(name: String!): Planet
         countPlanets: Int!
     }
 
-    type Filter {
-        like: String
-        eq: eq
-        ne: ne
-        gt: gt
-        lt: lt
-        ge: ge
-        le: le
+    input PlanetFilter {
+        pl_name:         FilterString
+        hostname:        FilterString
+        pl_letter:       FilterString
+        hd_name:         FilterString
+        hip_name:        FilterString
+        tic_id:          ID
+        gaia_id:         FilterString
+        sy_snum:         FilterFloat
+        sy_pnum:         FilterFloat
+        sy_mnum:         FilterFloat
+        cb_flag:         FilterInt
+        discoverymethod: FilterString
+        disc_year:       FilterFloat
+        disc_refname:    FilterString
+        disc_pubdate:    FilterString
+        disc_locale:     FilterString
+        disc_facility:   FilterString
+        disc_telescope:  FilterString
+        disc_instrument: FilterString
+        rv_flag:         FilterInt
+        pul_flag:        FilterInt
+        ptv_flag:        FilterInt
+        tran_flag:       FilterInt
+        ast_flag:        FilterInt
+        obm_flag:        FilterInt
+        micro_flag:      FilterInt
+        etv_flag:        FilterInt
+        ima_flag:        FilterInt
+        dkin_flag:       FilterInt
+        pl_controv_flag: FilterInt
+        pl_orbper:       FilterFloat
+        pl_orbpererr1:   FilterFloat
+        pl_orbpererr2:   FilterFloat
+        pl_orbperlim:    FilterFloat
+        pl_orbsmax:      FilterFloat
+        pl_orbsmaxerr1:  FilterFloat
+        pl_orbsmaxerr2:  FilterFloat
+        pl_orbsmaxlim:   FilterFloat
+        pl_rade:         FilterFloat
+        pl_radeerr1:     FilterString
+        pl_radeerr2:     FilterString
+        pl_radelim:      FilterFloat
+        pl_radj:         FilterFloat
+        pl_radjerr1:     FilterString
+        pl_radjerr2:     FilterString
+        pl_radjlim:      FilterFloat
+        pl_bmasse:       FilterFloat
+        pl_bmasseerr1:   FilterFloat
+        pl_bmasseerr2:   FilterFloat
+        pl_bmasselim:    FilterFloat
+        pl_bmassj:       FilterFloat
+        pl_bmassjerr1:   FilterFloat
+        pl_bmassjerr2:   FilterFloat
+        pl_bmassjlim:    FilterFloat
+        pl_bmassprov:    FilterString
+        pl_dens:         FilterFloat
+        pl_denserr1:     FilterString
+        pl_denserr2:     FilterString
+        pl_denslim:      FilterFloat
+        pl_orbeccen:     FilterFloat
+        pl_orbeccenerr1: FilterFloat
+        pl_orbeccenerr2: FilterFloat
+        pl_orbeccenlim:  FilterFloat
+        pl_insol:        FilterString
+        pl_insolerr1:    FilterString
+        pl_insolerr2:    FilterString
+        pl_insollim:     FilterString
+        pl_eqt:          FilterString
+        pl_eqterr1:      FilterString
+        pl_eqterr2:      FilterString
+        pl_eqtlim:       FilterString
+        pl_orbincl:      FilterString
+        pl_orbinclerr1:  FilterString
+        pl_orbinclerr2:  FilterString
+        pl_orbincllim:   FilterString
+        pl_tranmid:      FilterString
+        pl_tranmiderr1:  FilterString
+        pl_tranmiderr2:  FilterString
+        pl_tranmidlim:   FilterString
+        ttv_flag:        FilterInt
+        pl_imppar:       FilterString
+        pl_impparerr1:   FilterString
+        pl_impparerr2:   FilterString
+        pl_impparlim:    FilterString
+        pl_trandep:      FilterString
+        pl_trandeperr1:  FilterString
+        pl_trandeperr2:  FilterString
+        pl_trandeplim:   FilterString
+        pl_trandur:      FilterString
+        pl_trandurerr1:  FilterString
+        pl_trandurerr2:  FilterString
+        pl_trandurlim:   FilterString
+        pl_ratdor:       FilterString
+        pl_ratdorerr1:   FilterString
+        pl_ratdorerr2:   FilterString
+        pl_ratdorlim:    FilterString
+        pl_ratror:       FilterString
+        pl_ratrorerr1:   FilterString
+        pl_ratrorerr2:   FilterString
+        pl_ratrorlim:    FilterString
+        pl_occdep:       FilterString
+        pl_occdeperr1:   FilterString
+        pl_occdeperr2:   FilterString
+        pl_occdeplim:    FilterString
+        pl_orbtper:      FilterFloat
+        pl_orbtpererr1:  FilterFloat
+        pl_orbtpererr2:  FilterFloat
+        pl_orbtperlim:   FilterFloat
+        pl_orblper:      FilterFloat
+        pl_orblpererr1:  FilterFloat
+        pl_orblpererr2:  FilterFloat
+        pl_orblperlim:   FilterFloat
+        pl_rvamp:        FilterFloat
+        pl_rvamperr1:    FilterFloat
+        pl_rvamperr2:    FilterFloat
+        pl_rvamplim:     FilterFloat
+        st_spectype:     FilterString
+        st_teff:         FilterFloat
+        st_tefferr1:     FilterFloat
+        st_tefferr2:     FilterFloat
+        st_tefflim:      FilterFloat
+        st_rad:          FilterFloat
+        st_raderr1:      FilterFloat
+        st_raderr2:      FilterFloat
+        st_radlim:       FilterFloat
+        st_mass:         FilterFloat
+        st_masserr1:     FilterFloat
+        st_masserr2:     FilterFloat
+        st_masslim:      FilterFloat
+        st_met:          FilterFloat
+        st_meterr1:      FilterFloat
+        st_meterr2:      FilterFloat
+        st_metlim:       FilterFloat
+        st_metratio:     FilterString
+        st_logg:         FilterFloat
+        st_loggerr1:     FilterFloat
+        st_loggerr2:     FilterFloat
+        st_logglim:      FilterFloat
+        rastr:           FilterString
+        ra:              FilterFloat
+        decstr:          FilterString
+        dec:             FilterFloat
+        sy_pm:           FilterFloat
+        sy_pmerr1:       FilterFloat
+        sy_pmerr2:       FilterFloat
+        sy_pmra:         FilterFloat
+        sy_pmraerr1:     FilterFloat
+        sy_pmraerr2:     FilterFloat
+        sy_dist:         FilterFloat
+        sy_disterr1:     FilterFloat
+        sy_disterr2:     FilterFloat
+        sy_vmag:         FilterFloat
+        sy_vmagerr1:     FilterFloat
+        sy_vmagerr2:     FilterFloat
+        sy_kmag:         FilterFloat
+        sy_kmagerr1:     FilterFloat
+        sy_kmagerr2:     FilterFloat
+        sy_gaiamag:      FilterFloat
+        sy_gaiamagerr1:  FilterFloat
+        sy_gaiamagerr2:  FilterFloat
     }
 
-    union eq = StringBox | IntBox | FloatBox
-    union ne = StringBox | IntBox | FloatBox
-    union le = FloatBox | IntBox
-    union gt = FloatBox | IntBox
-    union lt = FloatBox | IntBox
-    union ge = FloatBox | IntBox
-    union le = FloatBox | IntBox
+    input FilterString {
+        like: String
+        eq:   String
+        ne:   String
+        gt:   String
+        lt:   String
+        ge:   String
+        le:   String
+    }
 
-    type IntBox { value: Int}
-    type StringBox { value: String}
-    type FloatBox { value: Float}
+    input FilterFloat {
+        eq: Float
+        ne: Float
+        gt: Float
+        lt: Float
+        ge: Float
+        le: Float
+    }
+
+    input FilterFloat {
+        eq: Float
+        ne: Float
+        gt: Float
+        lt: Float
+        ge: Float
+        le: Float
+    }
+
+    input FilterInt {
+        eq: Int
+        ne: Int
+        gt: Int
+        lt: Int
+        ge: Int
+        le: Int
+    }
+
+   interface Filter {
+        like: String
+        eq:   String
+        ne:   String
+        gt:   String
+        lt:   String
+        ge:   String
+        le:   String
+   }
     `

@@ -1,11 +1,12 @@
+import { PlanetFilter } from "../../../models/filter.model";
 import { Planet } from "../../../models/planet.model";
 import { getPlanet, getPlanets, getGetCount } from "../../../services/data.service";
 
 export const resolvers = {
   Query: {
-    getPlanets: async () => {
+    getPlanets: async (_: any, args: any) => {
       try {
-        const planets: Planet[] = await getPlanets()
+        const planets: Planet[] = await getPlanets(args.filter)
         return planets.map(planet => {
           for(const k in planet) {
             const key = k as keyof Planet
