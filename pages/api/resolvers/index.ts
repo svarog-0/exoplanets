@@ -1,13 +1,12 @@
 import { PlanetFilter } from "../../../models/filter.model";
-import { Planet } from "../../../models/planet.model";
+import { Page, Planet } from "../../../models/planet.model";
 import { getPlanet, getPlanets, getGetCount } from "../../../services/data.service";
 
 export const resolvers = {
   Query: {
-    getPlanets: async (_: any, args: any) => {
+    getPlanets: async (_: any, args: any) : Promise<Page<Planet>> => {
       try {
-        const planets: Planet[] = await getPlanets(args.filter)
-        return planets.map(planet => {
+        const planets: Planet[] = (await getPlanets(args.filter)).map(planet => {
           for(const k in planet) {
             const key = k as keyof Planet
             if(!planet[key])
@@ -15,6 +14,8 @@ export const resolvers = {
             }
           return (planet)
         });
+
+        return {count: planets.length, content: planets}
       } catch (error) {
         throw error;
       }

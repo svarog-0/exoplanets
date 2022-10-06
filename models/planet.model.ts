@@ -1,3 +1,7 @@
+export interface Page<T>{
+    count: number
+    content: T[]
+}
 export interface Planet {
     pl_name:         string;
     hostname:        string;

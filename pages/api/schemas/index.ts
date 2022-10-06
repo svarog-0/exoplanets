@@ -1,6 +1,11 @@
 import { gql } from "apollo-server-micro";
 
 export const typeDefs = gql`
+    type PlanetPage {
+        count: Int
+        content: [Planet]
+    }
+
     type  Planet {
         pl_name:         String
         hostname:        String
@@ -165,7 +170,7 @@ export const typeDefs = gql`
     }
 
     type  Query {
-        getPlanets(filter: PlanetFilter!): [Planet]
+        getPlanets(filter: PlanetFilter!): PlanetPage
         getPlanet(name: String!): Planet
         countPlanets: Int!
     }
@@ -379,4 +384,6 @@ export const typeDefs = gql`
         ge:   String
         le:   String
    }
+
+   
     `
