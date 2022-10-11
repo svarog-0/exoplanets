@@ -1,24 +1,63 @@
 import path from 'path'
 import fsPromises from 'fs/promises';
-import { Planet } from '../models/planet.model';
-import { PlanetFilter } from '../models/filter.model';
+import { Page, Planet } from '../models/planet.model';
+import { Direction, Pagination, PlanetFilter, Sort } from '../models/filter.model';
 
-export async function getPlanets(filter: PlanetFilter): Promise<Planet[]> {
-    const planets = await getPlanetsInternal()
-    return planets.filter(p => {
-        let match = false;
-        for (const fieldKey in filter) {
-            if(planetFilterMatch(p, filter, fieldKey)){
-                match = true;
-                continue;
+export async function getPlanets(pagination: Pagination, filter: PlanetFilter, sort: Sort): Promise<Page<Planet>> {
+    let planets = await getPlanetsInternal()
+    let page: Page<Planet> = {count: 0, content: []}
+    if(filter){
+        planets = planets.filter(p => {
+            let match = false;
+            for (const fieldKey in filter) {
+                if(planetFilterMatch(p, filter, fieldKey)){
+                    match = true;
+                    continue;
+                }
+    
+                match = false;
+                break;
+            }
+    
+            return match
+        })
+    }
+    page.count = planets.length;
+    if(sort){
+        type PlanetKey = keyof Planet;
+        const fieldKey = sort.field.toString() as PlanetKey
+        planets.sort((a, b) => {
+            if (a[fieldKey] > b[fieldKey]){
+                return sort.direction.toString() == "DESC" ? -1 : 1;
             }
 
-            match = false;
-            break;
+            if (a[fieldKey] < b[fieldKey]){
+                return sort.direction.toString() == "DESC" ? 1 : -1;
+            }
+      
+            return 0;
+        })
+    }
+    if(pagination){
+        if(pagination.offset >= planets.length){
+            planets = []
+        }
+        if(pagination.offset < 0){
+            pagination.offset = 0
         }
 
-        return match
-    })
+        if(planets.length - pagination.offset - pagination.size < 0){
+            planets = planets.slice(pagination.offset)
+        }
+        else{
+            planets = planets.slice(pagination.offset, + pagination.offset + pagination.size)
+        }
+        
+    }
+
+   page.content = planets
+
+   return page
 }
 
 export async function getGetCount(): Promise<number> {

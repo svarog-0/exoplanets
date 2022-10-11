@@ -1,4 +1,3 @@
-import { PlanetFilter } from "../../../models/filter.model";
 import { Page, Planet } from "../../../models/planet.model";
 import { getPlanet, getPlanets, getGetCount } from "../../../services/data.service";
 
@@ -6,16 +5,7 @@ export const resolvers = {
   Query: {
     getPlanets: async (_: any, args: any) : Promise<Page<Planet>> => {
       try {
-        const planets: Planet[] = (await getPlanets(args.filter)).map(planet => {
-          for(const k in planet) {
-            const key = k as keyof Planet
-            if(!planet[key])
-              planet[key] = null as never
-            }
-          return (planet)
-        });
-
-        return {count: planets.length, content: planets}
+          return await getPlanets(args.pagination ,args.filter, args.sort);
       } catch (error) {
         throw error;
       }

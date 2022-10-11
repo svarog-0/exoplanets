@@ -1,5 +1,5 @@
 import Cors from "micro-cors";
-import { typeDefs } from "./schemas";
+import { typeDefs } from "./schema.graphql";
 import { ApolloServer } from "apollo-server-micro";
 import { PageConfig } from "next";
 import { resolvers } from "./resolvers";
