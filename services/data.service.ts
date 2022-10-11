@@ -32,12 +32,14 @@ export async function getPlanet(name: string): Promise<Planet> {
 }
 
 async function getPlanetsInternal(): Promise<Planet[]> {
+  const startTime = performance.now()
   if(!dataCache){
-    console.log("loading data from file...")
+    console.debug("loading data from file...")
     const jsonData = await fsPromises.readFile(DATA_PATH)
     dataCache = JSON.parse(jsonData.toString())
   }
-
+  const endTime = performance.now()
+  console.log(`getPlanetsInternal took ${endTime - startTime} milliseconds to return`)
   return dataCache as Promise<Planet[]>;
 }
 
