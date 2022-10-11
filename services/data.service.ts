@@ -2,7 +2,7 @@ import path from "path";
 import fsPromises from "fs/promises";
 import { Page, Planet } from "../models/planet.model";
 import { Pagination, PlanetFilter, Sort } from "../models/filter.model";
-const DATA_PATH = "./data/db.json";
+const DATA_PATH = "data/db.json";
 let dataCache : Promise<Planet[]> | null = null
 
 export async function getPlanets(
@@ -35,7 +35,7 @@ async function getPlanetsInternal(): Promise<Planet[]> {
   const startTime = performance.now()
   if(!dataCache){
     console.debug("loading data from file...")
-    const jsonData = await fsPromises.readFile(DATA_PATH)
+    const jsonData = await fsPromises.readFile(path.join(process.cwd(), DATA_PATH))
     dataCache = JSON.parse(jsonData.toString())
   }
   const endTime = performance.now()
