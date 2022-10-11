@@ -2,6 +2,8 @@ import path from "path";
 import fsPromises from "fs/promises";
 import { Page, Planet } from "../models/planet.model";
 import { Pagination, PlanetFilter, Sort } from "../models/filter.model";
+const DATA_PATH = "./data/db.json";
+let dataCache : Promise<Planet[]> | null = null
 
 export async function getPlanets(
   pagination: Pagination,
@@ -30,10 +32,13 @@ export async function getPlanet(name: string): Promise<Planet> {
 }
 
 async function getPlanetsInternal(): Promise<Planet[]> {
-  const filePath: string = path.join(process.cwd(), "data/db.json");
-  const jsonData = await fsPromises.readFile(filePath);
+  if(!dataCache){
+    console.log("loading data from file...")
+    const jsonData = await fsPromises.readFile(DATA_PATH)
+    dataCache = JSON.parse(jsonData.toString())
+  }
 
-  return JSON.parse(jsonData.toString());
+  return dataCache as Promise<Planet[]>;
 }
 
 function planetFilterMatch(p: Planet, filter: PlanetFilter, skey: string) {
