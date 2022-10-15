@@ -1,10 +1,11 @@
 import Cors from "micro-cors";
 import { typeDefs } from "./schema.graphql";
-import { ApolloServer } from "apollo-server-micro";
+import { ApolloServer, M } from 'apollo-server-micro';
 import { PageConfig } from "next";
 import { resolvers } from "./resolvers";
-import { MicroRequest } from "apollo-server-micro/dist/types";
 import { ServerResponse, IncomingMessage } from "http";
+import { MicroRequest, } from "apollo-server-micro/dist/types";
+import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core"
 
 export const config: PageConfig = {
   api: {
@@ -17,7 +18,8 @@ const cors = Cors();
 const server = new ApolloServer({
   resolvers: resolvers,
   typeDefs: typeDefs,
-  introspection: true
+  introspection: true,
+  plugins: [ApolloServerPluginLandingPageLocalDefault]
 });
 
 const startServer = server.start();
