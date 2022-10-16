@@ -20,10 +20,6 @@ export async function getPlanets(
   return page;
 }
 
-export async function getGetCount(): Promise<number> {
-  return (await getPlanetsInternal()).length;
-}
-
 export async function getPlanet(name: string): Promise<Planet> {
   if (!name) throw Error("Name cannot be empty");
   const planets: Planet[] = await getPlanetsInternal();
