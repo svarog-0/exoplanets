@@ -1,6 +1,15 @@
 import { gql } from "apollo-server-micro";
 export const typeDefs = gql`
 
+type Query {
+  """
+  sadasdasd
+  """
+  getPlanets(pagination: Pagination, filter: PlanetFilter, sort: Sort): PlanetPage
+  getPlanet(name: String!): Planet
+  countPlanets: Int!
+}
+
 type PlanetPage {
   count: Int
   content: [Planet]
@@ -167,12 +176,6 @@ type Planet {
   sy_gaiamag: Float
   sy_gaiamagerr1: Float
   sy_gaiamagerr2: Float
-}
-
-type Query {
-  getPlanets(pagination: Pagination, filter: PlanetFilter, sort: Sort): PlanetPage
-  getPlanet(name: String!): Planet
-  countPlanets: Int!
 }
 
 input Sort {

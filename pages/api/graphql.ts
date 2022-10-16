@@ -1,11 +1,31 @@
 import Cors from "micro-cors";
 import { typeDefs } from "./schema.graphql";
-import { ApolloServer, M } from 'apollo-server-micro';
+import { ApolloServer } from 'apollo-server-micro';
 import { PageConfig } from "next";
 import { resolvers } from "./resolvers";
 import { ServerResponse, IncomingMessage } from "http";
-import { MicroRequest, } from "apollo-server-micro/dist/types";
+import { MicroRequest } from "apollo-server-micro/dist/types";
 import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core"
+
+const exampleQuery = 
+`{
+  getPlanets(
+    pagination: { offset: 0, size: 100 }
+    filter: { disc_year: { ge: 2020 }, discoverymethod: {eq: "Imaging"} }
+    sort: { field: disc_year, direction: DESC }
+  ) {
+    count
+    content {
+      pl_name
+      hostname
+      pl_bmasse
+      discoverymethod
+      disc_year
+      disc_refname
+      disc_instrument
+    }
+  }
+}`
 
 export const config: PageConfig = {
   api: {
@@ -19,7 +39,7 @@ const server = new ApolloServer({
   resolvers: resolvers,
   typeDefs: typeDefs,
   introspection: true,
-  plugins: [ApolloServerPluginLandingPageLocalDefault]
+  plugins: [ApolloServerPluginLandingPageLocalDefault({embed: true, document: exampleQuery})]
 });
 
 const startServer = server.start();
