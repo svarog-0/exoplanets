@@ -25,8 +25,8 @@ module.exports = (phase, { defaultConfig,}) => ({
                           checkSyntacticErrors: true,
                           tsconfig: fromCWD('./tsconfig.json'),
                           reportFiles: ['**', '!**/__tests__/**', '!**/?(*.)(spec|test).*'],
-                          compilerOptions: { isolatedModules: true, noEmit: true },
-                          silent: true,
+                          compilerOptions: { isolatedModules: true, noEmit: false },
+                          silent: false,
                         },
                         formatter: 'codeframe'
                     })

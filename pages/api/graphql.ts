@@ -9,7 +9,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core"
 
 const exampleQuery = 
 `{
-  getPlanets(
+  Planets(
     pagination: { offset: 0, size: 100 }
     filter: { disc_year: { ge: 2020 }, discoverymethod: {eq: "Imaging"} }
     sort: { field: disc_year, direction: DESC }
@@ -25,7 +25,17 @@ const exampleQuery =
       disc_instrument
     }
   }
+},
+{
+  Planet(name: "11 Com b") {
+      pl_name
+      hostname
+      st_loggerr1
+      st_mass
+      st_tefferr1
+  }
 }`
+
 
 export const config: PageConfig = {
   api: {
@@ -35,11 +45,16 @@ export const config: PageConfig = {
 
 const cors = Cors();
 
+
+
+
+
+
 const server = new ApolloServer({
   resolvers: resolvers,
   typeDefs: typeDefs,
   introspection: true,
-  plugins: [ApolloServerPluginLandingPageLocalDefault({embed: true, document: exampleQuery})]
+  plugins: [ApolloServerPluginLandingPageLocalDefault({embed: true, document: exampleQuery, headers: {key: "test"}})]
 });
 
 const startServer = server.start();
