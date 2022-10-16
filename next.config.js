@@ -1,14 +1,7 @@
 /** @type {import('next').NextConfig} */
-
-module.exports = {
+const nextConfig = {
+  reactStrictMode: true,
   swcMinify: true,
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/api/graphql',
-        permanent: true,
-      },
-    ]
-  }
 }
+
+module.exports = nextConfig
