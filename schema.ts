@@ -1,6 +1,20 @@
 import { gql } from "apollo-server-micro";
+import { Pagination, PlanetFilter, Sort } from "./models/filter.model";
+import { Page, Planet } from "./models/planet.model";
+import { getPlanet, getPlanets } from "./services/data.service";
+
+export const resolvers = {
+  Query: {
+    Planets: async (_: any, args: {pagination: Pagination, filter: PlanetFilter, sort: Sort}) : Promise<Page<Planet>> => getPlanets(args.pagination ,args.filter, args.sort),
+    Planet: async (_: any, args: {name: string}) => {
+        const planet: Planet = await getPlanet(args.name)
+        if(!planet) return null
+        return planet;
+    }
+  }
+};
+
 export const typeDefs = gql`
-  
 
 type Query {
   """
@@ -2010,3 +2024,32 @@ interface Filter {
 }
 
 `
+
+export const exampleQuery = 
+`{
+  Planets(
+    pagination: { offset: 0, size: 100 }
+    filter: { disc_year: { ge: 2020 }, discoverymethod: {eq: "Imaging"} }
+    sort: { field: disc_year, direction: DESC }
+  ) {
+    count
+    content {
+      pl_name
+      hostname
+      pl_bmasse
+      discoverymethod
+      disc_year
+      disc_refname
+      disc_instrument
+    }
+  }
+},
+{
+  Planet(name: "11 Com b") {
+      pl_name
+      hostname
+      st_loggerr1
+      st_mass
+      st_tefferr1
+  }
+}`

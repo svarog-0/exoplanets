@@ -3,7 +3,10 @@ import fsPromises from "fs/promises";
 import { Page, Planet } from "../models/planet.model";
 import { Pagination, PlanetFilter, Sort } from "../models/filter.model";
 const DATA_PATH = "data/db.json";
-let dataCache : Promise<Planet[]> | null = null
+let dataCache : Promise<Planet[]> | null = (()=> {
+  console.log('data cache init!')
+  return null
+})()
 
 export async function getPlanets(
   pagination: Pagination,
