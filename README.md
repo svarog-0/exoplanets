@@ -1,5 +1,6 @@
 ## 🪐Exoplanets
 ![Version](https://img.shields.io/badge/dynamic/json?color=green&label=exoplanets&prefix=v&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsvarog-0%2Fexoplanets%2Fmain%2Fpackage.json)
+[![Deployment Status](https://img.shields.io/endpoint?url=https://exoplanets-svarog-0.vercel.app/api/deployment)](https://exoplanets-svarog-0.vercel.app)
 ![Planets](https://img.shields.io/badge/%F0%9F%AA%90%20Planets-5171-orange)
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?logo=vercel&logoColor=white)
 ![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?logo=apollo-graphql)
