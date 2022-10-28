@@ -13,7 +13,6 @@
     "@apollo/client": "^3.7.0",
     "apollo-server-micro": "^3.10.2",
     "axios": "^0.27.2",
-    "deployment-badge": "^1.1.0",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
     "from-cwd": "^1.0.1",
     "micro-cors": "^0.1.1",
