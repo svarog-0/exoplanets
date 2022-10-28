@@ -7,7 +7,7 @@
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?logo=typescript&logoColor=white)
 
 
-GraphQL API for exploring exoplanets data from [NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu/). Written in TypeScript as Next.js API Route, hosted on Vercel.Filter available on all fields, with sorting and pagination.
+GraphQL API for exploring exoplanets data from [NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu/). Written in TypeScript as Next.js API Route, hosted on Vercel. Filter available on all fields, with sorting and pagination.
 
 GraphQL API and Apollo Sandbox with docs are available at [https://exoplanets-svarog-0.vercel.app/api/graphql](https://exoplanets-svarog-0.vercel.app/api/graphql)
 
